@@ -4,8 +4,8 @@ import { apiToPromise } from './util/promise';
 
 for (const [id, title] of [
 	[OTHER, 'Discard other tabs'],
-	[LEFT, 'Discard tabs to the left'],
 	[RIGHT, 'Discard tabs to the right'],
+	[LEFT, 'Discard tabs to the left'],
 ]) {
 	chrome.contextMenus.create({ id, title, contexts: ['browser_action'] });
 }
@@ -15,7 +15,11 @@ chrome.contextMenus.onClicked.addListener(async ({ menuItemId }, { id: activeTab
 	const discard = apiToPromise(chrome.tabs.discard);
 
 	const tabsInCurrentWindow = await query({ windowId });
-	let tabIds = tabsInCurrentWindow.map(({ id }) => id);
+
+	let tabIds = tabsInCurrentWindow
+		.filter(({ audible }) => !audible)
+		.map(({ id }) => id);
+
 	switch (menuItemId) {
 		case OTHER:
 			tabIds = tabIds.filter(id => id !== activeTabId);
