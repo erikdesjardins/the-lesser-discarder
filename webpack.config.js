@@ -3,7 +3,6 @@ const path = require('path');
 const InertEntryPlugin = require('inert-entry-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
 const rollupCommonjsPlugin = require('rollup-plugin-commonjs');
-const rollupReplacePlugin = require('rollup-plugin-re');
 
 module.exports = {
 	entry: 'extricate-loader!interpolate-loader!./src/manifest.json',
