@@ -3,7 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 const deployChrome = require('chrome-extension-deploy');
-const manifest = require('./dist/manifest.json');
 
 deployChrome({
 	clientId: process.env.CHROME_CLIENT_ID,
