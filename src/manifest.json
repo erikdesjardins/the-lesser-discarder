@@ -7,6 +7,7 @@
 	"minimum_chrome_version": "55",
 	"minimum_opera_version": "42",
 	"permissions": [
+		"contextMenus"
 	],
 	"background": {
 		"scripts": ["{{./js/background.entry.js}}"],
