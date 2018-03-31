@@ -36,3 +36,7 @@ chrome.contextMenus.onClicked.addListener(async ({ menuItemId }, { id: activeTab
 		discard(id);
 	}
 });
+
+chrome.browserAction.onClicked.addListener(({ id: activeTabId }) => {
+	chrome.tabs.discard(activeTabId);
+});
