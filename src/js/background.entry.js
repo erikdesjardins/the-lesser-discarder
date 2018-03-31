@@ -11,10 +11,7 @@ for (const [id, title] of [
 }
 
 chrome.contextMenus.onClicked.addListener(async ({ menuItemId }, { id: activeTabId, windowId }) => {
-	const query = apiToPromise(chrome.tabs.query);
-	const discard = apiToPromise(chrome.tabs.discard);
-
-	const tabsInCurrentWindow = await query({ windowId });
+	const tabsInCurrentWindow = await apiToPromise(chrome.tabs.query)({ windowId });
 
 	let tabIds = tabsInCurrentWindow
 		.filter(({ audible }) => !audible)
@@ -33,7 +30,7 @@ chrome.contextMenus.onClicked.addListener(async ({ menuItemId }, { id: activeTab
 	}
 
 	for (const id of tabIds) {
-		discard(id);
+		chrome.tabs.discard(id);
 	}
 });
 
