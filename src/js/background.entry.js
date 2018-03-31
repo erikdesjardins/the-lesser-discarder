@@ -4,8 +4,8 @@ import { apiToPromise } from './util/promise';
 
 for (const [id, title] of [
 	[OTHER, 'Discard other tabs'],
-	[LEFT, 'Discard tabs to the left'],
 	[RIGHT, 'Discard tabs to the right'],
+	[LEFT, 'Discard tabs to the left'],
 ]) {
 	chrome.contextMenus.create({ id, title, contexts: ['browser_action'] });
 }
