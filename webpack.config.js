@@ -2,7 +2,6 @@ const path = require('path');
 
 const InertEntryPlugin = require('inert-entry-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
-const rollupCommonjsPlugin = require('rollup-plugin-commonjs');
 
 module.exports = {
 	entry: 'extricate-loader!interpolate-loader!./src/manifest.json',
@@ -15,14 +14,7 @@ module.exports = {
 			test: /\.entry\.js$/,
 			use: [
 				{ loader: 'file-loader', options: { name: '[name].js' } },
-				{
-					loader: 'webpack-rollup-loader',
-					options: {
-						plugins: [
-							rollupCommonjsPlugin({ extensions: ['.png'] }),
-						],
-					},
-				},
+				{ loader: 'webpack-rollup-loader' },
 			],
 		}, {
 			test: /\.(png)$/,
