@@ -34,6 +34,12 @@ chrome.contextMenus.onClicked.addListener(async ({ menuItemId }, { id: activeTab
 	}
 });
 
-chrome.browserAction.onClicked.addListener(({ id: activeTabId }) => {
-	chrome.tabs.discard(activeTabId);
+chrome.browserAction.onClicked.addListener(async ({ windowId }) => {
+	const highlightedInCurrentWindow = await apiToPromise(chrome.tabs.query)({ windowId, highlighted: true });
+
+	const tabIds = highlightedInCurrentWindow.map(({ id }) => id);
+
+	for (const id of tabIds) {
+		chrome.tabs.discard(id);
+	}
 });
