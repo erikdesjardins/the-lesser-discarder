@@ -1,7 +1,7 @@
 {
   "title": "The Lesser Discarder",
   "name": "the-lesser-discarder",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Surfaces the chrome.tabs.discard API.",
   "private": true,
   "repository": {
