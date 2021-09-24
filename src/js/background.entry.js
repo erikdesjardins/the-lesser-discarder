@@ -1,17 +1,16 @@
 import { OTHER, RIGHT, LEFT } from './constants/menuId';
 import { takeWhile } from './util/iter';
-import { apiToPromise } from './util/promise';
 
 for (const [id, title] of [
 	[OTHER, 'Discard other tabs'],
 	[RIGHT, 'Discard tabs to the right'],
 	[LEFT, 'Discard tabs to the left'],
 ]) {
-	chrome.contextMenus.create({ id, title, contexts: ['browser_action'] });
+	chrome.contextMenus.create({ id, title, contexts: ['action'] });
 }
 
 chrome.contextMenus.onClicked.addListener(async ({ menuItemId }, { id: activeTabId, windowId }) => {
-	const tabsInCurrentWindow = await apiToPromise(chrome.tabs.query)({ windowId });
+	const tabsInCurrentWindow = await chrome.tabs.query({ windowId });
 
 	let tabIds = tabsInCurrentWindow
 		.filter(({ audible }) => !audible)
@@ -34,8 +33,8 @@ chrome.contextMenus.onClicked.addListener(async ({ menuItemId }, { id: activeTab
 	}
 });
 
-chrome.browserAction.onClicked.addListener(async ({ windowId }) => {
-	const highlightedInCurrentWindow = await apiToPromise(chrome.tabs.query)({ windowId, highlighted: true });
+chrome.action.onClicked.addListener(async ({ windowId }) => {
+	const highlightedInCurrentWindow = await chrome.tabs.query({ windowId, highlighted: true });
 
 	const tabIds = highlightedInCurrentWindow.map(({ id }) => id);
 
